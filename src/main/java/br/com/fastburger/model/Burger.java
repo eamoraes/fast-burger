@@ -7,9 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.PostLoad;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name="burgers")
@@ -19,25 +17,16 @@ public class Burger extends EntityBase<Long> {
 
 	private String name;
 	
+	private BigDecimal totalValue;
+
 	@ManyToMany
 	@JoinColumn(name = "ingredient_id")
 	private List<Ingredient> ingredients;
-	
-	@Transient
-	private BigDecimal totalValue;
 	
 	public Burger() {
 
 	}
 	
-	@PostLoad
-	private void postLoad() {
-		totalValue = new BigDecimal("0");
-		for (Ingredient ingredient : ingredients) {
-			totalValue = totalValue.add(ingredient.getValue());
-		}
-	}
-
 	public Burger(String name, List<Ingredient> ingredients) {
 		super();
 		this.name = name;
@@ -80,11 +69,15 @@ public class Burger extends EntityBase<Long> {
 	public BigDecimal getTotalValue() {
 		return totalValue;
 	}
+	
+	public void setTotalValue(BigDecimal totalValue) {
+		this.totalValue = totalValue;
+	}
 
 	@Override
 	public String toString() {
-		return "Burger [id=" + getId() + ", name=" + name + ", ingredients=" + ingredients + ", totalValue="
-				+ totalValue + "]";
+		return "Burger [id=" + getId() + ", name=" + name + ", totalValue=" + totalValue + ", ingredients="
+				+ ingredients + "]";
 	}
 
 }

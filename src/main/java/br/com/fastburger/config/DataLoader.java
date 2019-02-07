@@ -9,17 +9,17 @@ import org.springframework.context.annotation.Configuration;
 
 import br.com.fastburger.model.Burger;
 import br.com.fastburger.model.Ingredient;
-import br.com.fastburger.repository.BurgerRepository;
-import br.com.fastburger.repository.IngredientRepository;
+import br.com.fastburger.service.BurgerService;
+import br.com.fastburger.service.IngredientService;
 
 @Configuration
 public class DataLoader implements CommandLineRunner {
 
 	@Autowired
-	private IngredientRepository ingredientRepository;
+	private IngredientService ingredientService;
 	
 	@Autowired
-	private BurgerRepository burgerRepository;
+	private BurgerService burgerService;
 
 	/*
 	public DataLoader(IngredientRepository ingredientRepository) {
@@ -42,37 +42,37 @@ public class DataLoader implements CommandLineRunner {
 		Ingredient queijo = new Ingredient("Queijo", new BigDecimal("1.50"));
 		
 		
-		this.ingredientRepository.saveAll(Arrays.asList(alface, bacon, 
+		this.ingredientService.saveAll(Arrays.asList(alface, bacon, 
 				hamburguer, ovo, queijo));
 	}
 	
 	private void addBurgers() {
 		
 		Burger xBacon = new Burger("X-Bacon", Arrays.asList(
-				ingredientRepository.findByName("Bacon"),
-				ingredientRepository.findByName("Hambúrguer de carne"),
-				ingredientRepository.findByName("Queijo")
+				ingredientService.findByName("Bacon"),
+				ingredientService.findByName("Hambúrguer de carne"),
+				ingredientService.findByName("Queijo")
 				));
 
 		Burger xBurger = new Burger("X-Burger", Arrays.asList(
-				ingredientRepository.findByName("Hambúrguer de carne"),
-				ingredientRepository.findByName("Queijo")
+				ingredientService.findByName("Hambúrguer de carne"),
+				ingredientService.findByName("Queijo")
 				));
 		
 		Burger xEgg = new Burger("X-Egg", Arrays.asList(
-				ingredientRepository.findByName("Ovo"),
-				ingredientRepository.findByName("Hambúrguer de carne"),
-				ingredientRepository.findByName("Queijo")
+				ingredientService.findByName("Ovo"),
+				ingredientService.findByName("Hambúrguer de carne"),
+				ingredientService.findByName("Queijo")
 				));
 		
 		Burger xEggBacon = new Burger("X-Egg Bacon", Arrays.asList(
-				ingredientRepository.findByName("Ovo"),
-				ingredientRepository.findByName("Bacon"),
-				ingredientRepository.findByName("Hambúrguer de carne"),
-				ingredientRepository.findByName("Queijo")
+				ingredientService.findByName("Ovo"),
+				ingredientService.findByName("Bacon"),
+				ingredientService.findByName("Hambúrguer de carne"),
+				ingredientService.findByName("Queijo")
 				));
 		
-		this.burgerRepository.saveAll(Arrays.asList(xBacon, xBurger, xEgg, xEggBacon));
+		this.burgerService.saveAll(Arrays.asList(xBacon, xBurger, xEgg, xEggBacon));
 	}
 
 
